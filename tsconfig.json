@@ -14,9 +14,17 @@
     "sourceMap": true,
     "declaration": true,
 
-    "types": ["node", "express"],
+    "types": ["node", "express", "jest"],
 
     "isolatedModules": false,
     "verbatimModuleSyntax": false
-  }
+  },
+  "exclude": [
+     "__mocks__",
+    "**/__tests__",
+    "coverage",
+    "jest.config.ts",
+    "node_modules",
+    "dist"
+  ]
 }

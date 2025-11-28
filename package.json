@@ -4,31 +4,41 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-   "build": "tsc",
-   "start": "node dist/server.js"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@sendgrid/mail": "^8.1.6",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "googleapis": "^166.0.0",
     "jsonwebtoken": "^9.0.2",
     "mssql": "^12.1.0",
     "nodemailer": "^7.0.10"
   },
   "devDependencies": {
+    "@jest/types": "^30.2.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mssql": "^9.1.8",
     "@types/node": "^24.10.1",
     "@types/nodemailer": "^7.0.4",
+    "jest": "^30.2.0",
+    "sinon": "^21.0.0",
+    "ts-jest": "^29.4.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }

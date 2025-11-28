@@ -9,8 +9,8 @@ const config: SqlConfig = {
   database: process.env.DB_NAME!,
   server: process.env.DB_SERVER!,
   options: {
-    encrypt: false,
-    trustServerCertificate: true,
+    encrypt: true,
+    trustServerCertificate: false,
   },
 };
 
