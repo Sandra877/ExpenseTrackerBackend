@@ -29,7 +29,8 @@ export const register = async ({ email, password }: RegisterInput) => {
   await sendEmail(
     email,
     "Verify your account",
-    `Click to verify: http://localhost:5000/api/auth/verify/${verificationToken}`
+    `Click to verify your account: ${process.env.FRONTEND_URL}/verify/${verificationToken}`
+
   );
 
   return { message: "User registered. Check your email to verify." };
