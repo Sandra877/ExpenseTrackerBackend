@@ -9,16 +9,20 @@ const app = express();
 // CORS setup
 const allowedOrigins = (process.env.CORS_ORIGIN || "").split(",");
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://swkxpensetrackerreactapp.vercel.app/"
+  ],
+  credentials: true,
+}));
+
 
 
 // Middleware
 app.use(express.json());
+
+app.options("*", cors());
 
 // Routes
 app.get('/health', (_req, res) => res.status(200).json({ status: 'ok' }));
