@@ -10,7 +10,16 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://swkxpensetrackerreactapp.vercel.app",
+    ],
+    credentials: true,
+    exposedHeaders: ["Authorization"],
+  })
+);
 app.use(express.json());
 
 // connect to db
