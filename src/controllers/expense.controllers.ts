@@ -13,7 +13,7 @@ export const addExpense = async (req: Request & { user?: any }, res: Response) =
 export const getExpenses = async (req: Request & { user?: any }, res: Response) => {
   try {
     const result = await expenseService.getExpenses(req.user!.id);
-    res.json(result);
+    res.json({ data: result });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -21,19 +21,26 @@ export const getExpenses = async (req: Request & { user?: any }, res: Response) 
 
 export const updateExpense = async (req: Request & { user?: any }, res: Response) => {
   try {
+    const userId = req.user!.id;
+
     const result = await expenseService.updateExpense(
-      req.params.id,
+      Number(req.params.id),
+      userId,
       req.body
     );
+
     res.json(result);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
 };
 
-export const deleteExpense = async (req: Request, res: Response) => {
+export const deleteExpense = async (req: Request & { user?: any }, res: Response) => {
   try {
-    await expenseService.deleteExpense(Number(req.params.id));
+    const userId = req.user!.id;
+
+    await expenseService.deleteExpense(Number(req.params.id), userId);
+
     res.json({ message: "Expense deleted" });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
