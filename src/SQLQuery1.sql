@@ -15,6 +15,7 @@ CREATE TABLE Expenses (
   amount DECIMAL(18,2) NOT NULL,
   category NVARCHAR(100),
   date DATE,
+  note NVARCHAR(500),
   createdAt DATETIME DEFAULT GETDATE(),
 
   FOREIGN KEY (userId) REFERENCES Users(id)
@@ -62,11 +63,12 @@ CREATE PROCEDURE AddExpense
   @Title NVARCHAR(255),
   @Amount DECIMAL(18,2),
   @Category NVARCHAR(100),
-  @Date DATE
+  @Date DATE,
+  @Note NVARCHAR(500)
 AS
 BEGIN
-  INSERT INTO Expenses (userId, title, amount, category, date)
-  VALUES (@UserId, @Title, @Amount, @Category, @Date);
+  INSERT INTO Expenses (userId, title, amount, category, date, note)
+  VALUES (@UserId, @Title, @Amount, @Category, @Date, @Note);
 
   SELECT * FROM Expenses WHERE id = SCOPE_IDENTITY();
 END
@@ -77,14 +79,16 @@ CREATE PROCEDURE UpdateExpense
   @Title NVARCHAR(255),
   @Amount DECIMAL(18,2),
   @Category NVARCHAR(100),
-  @Date DATE
+  @Date DATE,
+  @Note NVARCHAR(500)
 AS
 BEGIN
   UPDATE Expenses
   SET title = @Title,
       amount = @Amount,
       category = @Category,
-      date = @Date
+      date = @Date,
+      note = @Note
   WHERE id = @Id;
 
   SELECT * FROM Expenses WHERE id = @Id;

@@ -27,11 +27,11 @@ export const register = async ({ email, password }: RegisterInput) => {
 
   // Send verification email
   await sendEmail(
-    email,
-    "Verify your account",
-    `Click to verify your account: ${process.env.FRONTEND_URL}/verify/${verificationToken}`
+  email,
+  "Verify your account",
+  `Click to verify your account: ${process.env.BACKEND_URL}/api/auth/verify/${verificationToken}`
+);
 
-  );
 
   return { message: "User registered. Check your email to verify." };
 };
