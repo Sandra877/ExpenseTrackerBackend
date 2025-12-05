@@ -3,6 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import expenseRoutes from "./routes/expense.routes";
+import adminRoutes from "./routes/admin.routes";
+
+
+
+
 
 dotenv.config();
 
@@ -19,6 +24,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use("/api/admin", adminRoutes);
 
 // 🔥 Load real routes
 app.use("/api/auth", authRoutes);

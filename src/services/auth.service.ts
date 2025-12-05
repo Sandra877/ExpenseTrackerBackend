@@ -71,7 +71,11 @@ export const login = async ({ email, password }: LoginInput) => {
   if (!isMatch) throw new Error("Invalid credentials");
 
   // Generate JWT
-  const token = generateToken({ id: user.id, email: user.email });
+const token = generateToken({
+  id: user.id,
+  email: user.email,
+  role: user.role
+});
 
   return { message: "Login successful", token };
 };

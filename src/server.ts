@@ -5,6 +5,9 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import expenseRoutes from "./routes/expense.routes";
 import { getPool } from "./config/db";
+import adminRoutes from "./routes/admin.routes";
+
+
 
 dotenv.config();
 
@@ -28,6 +31,9 @@ getPool();
 // ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes); // <-- THIS IS THE RIGHT PLACE
+
+app.use("/api/admin", adminRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 
