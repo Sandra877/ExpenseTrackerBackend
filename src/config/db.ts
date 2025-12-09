@@ -29,3 +29,16 @@ export const getPool = async (): Promise<ConnectionPool> => {
     throw error;
   }
 };
+
+export const closePool = async (): Promise<void> => {
+  if (pool) {
+    try {
+      await pool.close();
+      pool = null;
+      console.log('🔌 Database connection pool closed');
+    } catch (error) {
+      console.error('❌ Error closing database connection:', error);
+      throw error;
+    }
+  }
+};

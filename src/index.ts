@@ -1,13 +1,14 @@
-import express from "express";
+import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+
 import authRoutes from "./routes/auth.routes";
 import expenseRoutes from "./routes/expense.routes";
 import adminRoutes from "./routes/admin.routes";
 
 dotenv.config();
 
-const app = express();
+const app: Application = express();  // <-- Fixes the TS error
 
 app.use(
   cors({
@@ -16,21 +17,18 @@ app.use(
       "https://swkxpensetrackerreactapp.vercel.app",
     ],
     credentials: true,
+    exposedHeaders: ["Authorization"],
   })
 );
 
 app.use(express.json());
-app.use("/api/admin", adminRoutes);
 
-// 🔥 Load real routes
+// ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/admin", adminRoutes);
 
+// Health check for render
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
-app.use((_req, res) => {
-  res.status(404).json({ error: "Route not found" });
-});
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server running on port ${port}`));
+export default app; 
