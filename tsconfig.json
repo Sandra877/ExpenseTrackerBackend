@@ -24,7 +24,7 @@
      "__mocks__",
     "**/__tests__",
     "coverage",
-    "jest.config.ts",
+    "jest.config.js",
     "node_modules",
     "dist"
   ]

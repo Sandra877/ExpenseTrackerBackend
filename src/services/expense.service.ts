@@ -1,4 +1,9 @@
-import { getPool } from "../config/db";
+import {
+  createExpense,
+  findExpensesByUser,
+  updateExpenseRecord,
+  deleteExpenseRecord
+} from "../repositories/expense.repository";
 
 interface ExpenseInput {
   title: string;
@@ -9,30 +14,11 @@ interface ExpenseInput {
 }
 
 export const addExpense = async (userId: number, data: ExpenseInput) => {
-  const pool = await getPool();
-
-  const result = await pool
-    .request()
-    .input("UserId", userId)
-    .input("Title", data.title)
-    .input("Amount", data.amount)
-    .input("Category", data.category)
-    .input("Date", data.date)
-    .input("Note", data.note || "")
-    .execute("AddExpense");
-
-  return result.recordset[0];
+  return await createExpense(userId, data);
 };
 
 export const getExpenses = async (userId: number) => {
-  const pool = await getPool();
-
-  const result = await pool
-    .request()
-    .input("UserId", userId)
-    .execute("GetExpensesByUser");
-
-  return result.recordset;
+  return await findExpensesByUser(userId);
 };
 
 export const updateExpense = async (
@@ -40,36 +26,19 @@ export const updateExpense = async (
   userId: number,
   data: ExpenseInput
 ) => {
-  const pool = await getPool();
+  const result = await updateExpenseRecord(id, userId, data);
 
-  const result = await pool
-    .request()
-    .input("Id", id)
-    .input("UserId", userId)
-    .input("Title", data.title)
-    .input("Amount", data.amount)
-    .input("Category", data.category)
-    .input("Date", data.date)
-    .input("Note", data.note || "")
-    .execute("UpdateExpense");
-
-  if (result.recordset.length === 0) {
+  if (!result) {
     throw new Error("Expense not found or unauthorized");
   }
 
-  return result.recordset[0];
+  return result;
 };
 
 export const deleteExpense = async (id: number, userId: number) => {
-  const pool = await getPool();
+  const rowsAffected = await deleteExpenseRecord(id, userId);
 
-  const result = await pool
-    .request()
-    .input("Id", id)
-    .input("UserId", userId)
-    .execute("DeleteExpense");
-
-  if (result.rowsAffected[0] === 0) {
+  if (rowsAffected === 0) {
     throw new Error("Expense not found or unauthorized");
   }
 };

@@ -5,10 +5,6 @@ import authRoutes from "./routes/auth.routes";
 import expenseRoutes from "./routes/expense.routes";
 import adminRoutes from "./routes/admin.routes";
 
-
-
-
-
 dotenv.config();
 
 const app = express();
