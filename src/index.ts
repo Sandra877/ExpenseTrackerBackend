@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import expenseRoutes from "./routes/expense.routes";
 import adminRoutes from "./routes/admin.routes";
+import messageRoutes from "./routes/message.routes"
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/messages", messageRoutes);
+
 
 // Health check for render
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
