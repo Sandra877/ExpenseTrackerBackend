@@ -4,6 +4,6 @@ import { authMiddleware } from "../middleware/auth.middleware";
 
 const router: Router = Router();
 
-router.post("/", authMiddleware, sendMessage);
+router.post("/contact", authMiddleware, sendMessage);
 
 export default router;
